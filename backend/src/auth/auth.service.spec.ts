@@ -1,6 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
-
+import { PrismaService } from '../prisma/prisma.service'; // ✅ adjust path as needed
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
