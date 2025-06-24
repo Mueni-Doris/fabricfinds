@@ -1,5 +1,5 @@
 // Import your Prisma client
-import { PrismaClient } from '../../../generated/prisma';
+import { PrismaClient } from '../../../generated/prisma/client';
 
 // Create a Prisma client instance
 const prisma = new PrismaClient();
