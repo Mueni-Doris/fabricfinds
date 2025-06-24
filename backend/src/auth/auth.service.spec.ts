@@ -1,6 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { Decimal } from '../../generated/prisma/runtime/library';
+import { PrismaClient } from '@prisma/client';
 
 import * as bcrypt from 'bcrypt';
 

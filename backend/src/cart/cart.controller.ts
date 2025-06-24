@@ -10,7 +10,6 @@ import {
   } from '@nestjs/common';
   import { CartService } from './cart.service';
   import { Request } from 'express';
-  import { Decimal } from '@prisma/client/runtime/library';
 
   
   @Controller('cart')
