@@ -126,8 +126,8 @@ exports.Prisma.CartScalarFieldEnum = {
   price: 'price',
   image: 'image',
   quantity: 'quantity',
-  email: 'email',
-  clothe_id: 'clothe_id'
+  clothe_id: 'clothe_id',
+  email: 'email'
 };
 
 exports.Prisma.ClothesScalarFieldEnum = {
@@ -177,13 +177,10 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.cartOrderByRelevanceFieldEnum = {
+exports.Prisma.CartOrderByRelevanceFieldEnum = {
   description: 'description',
-  price: 'price',
   image: 'image',
-  quantity: 'quantity',
-  email: 'email',
-  clothe_id: 'clothe_id'
+  email: 'email'
 };
 
 exports.Prisma.clothesOrderByRelevanceFieldEnum = {
@@ -223,7 +220,7 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
 
 
 exports.Prisma.ModelName = {
-  cart: 'cart',
+  Cart: 'Cart',
   clothes: 'clothes',
   order_items: 'order_items',
   orders: 'orders',

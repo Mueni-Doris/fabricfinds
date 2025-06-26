@@ -6,7 +6,7 @@ import CartItemList from "./ClothesItemList"; // Make sure this file exists and 
 interface FabricItem {
   id: string;
   description: string;
-  price: string;
+  price: number;
   image: string;
   category: string;
 }
