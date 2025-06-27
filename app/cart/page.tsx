@@ -37,7 +37,7 @@ export default function CartPage() {
         const data = await res.json();
 
         if (!data.loggedIn) {
-          toast.error("Please login first 🙅‍♀️");
+          toast.error("Please login first 💅️");
           router.push("/login");
         } else {
           await fetchCart();
@@ -62,7 +62,7 @@ export default function CartPage() {
         credentials: "include",
         body: JSON.stringify({ quantity: editedQuantity }),
       });
-  
+
       const result = await res.json();
       if (result.success) {
         toast.success("Cart updated");
@@ -75,7 +75,6 @@ export default function CartPage() {
       toast.error("Update failed");
     }
   };
-  
 
   const handleDelete = async (item: any) => {
     if (!confirm(`Remove ${item.description}?`)) return;
@@ -143,16 +142,16 @@ export default function CartPage() {
 
                     {editingItemId === item.id ? (
                       <div className="flex items-center gap-2 mt-2">
-<input
-  type="number"
-  min="1"
-  className="border px-2 py-1 w-16 rounded"
-  value={isNaN(editedQuantity) ? 1 : editedQuantity}
-  onChange={(e) => {
-    const val = parseInt(e.target.value);
-    setEditedQuantity(isNaN(val) ? 1 : val); // fallback to 1
-  }}
-/>
+                        <input
+                          type="number"
+                          min="1"
+                          className="border px-2 py-1 w-16 rounded"
+                          value={isNaN(editedQuantity) ? 1 : editedQuantity}
+                          onChange={(e) => {
+                            const val = parseInt(e.target.value);
+                            setEditedQuantity(isNaN(val) ? 1 : val);
+                          }}
+                        />
 
                         <button
                           onClick={() => handleSaveEdit(item)}

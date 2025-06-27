@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import CartItemList from "./ClothesItemList"; // Make sure this file exists and exports default
+import CartItemList from "./ClothesItemList"; // double-check file exists
 
 interface FabricItem {
   id: string;
@@ -12,21 +12,30 @@ interface FabricItem {
 }
 
 export default function CartPage() {
-  const [groupedByCategory, setGroupedByCategory] = useState<Record<string, FabricItem[]>>({});
+  const [items, setItems] = useState<FabricItem[]>([]);
 
   useEffect(() => {
-    const fetchFabrics = async () => {
+    async function fetchFabrics() {
       try {
-        const response = await fetch("/api/fabrics");
-        const data = await response.json();
-        setGroupedByCategory(data);
-      } catch (error) {
-        console.error("Failed to fetch fabrics:", error);
+        const res = await fetch("http://localhost:3001/fabrics");
+        const data = await res.json();
+        setItems(data);
+      } catch (err) {
+        console.error("Failed to fetch fabrics:", err);
       }
-    };
+    }
 
     fetchFabrics();
   }, []);
+
+  // 👇 Group by category (MUST come after items is defined)
+  const groupedByCategory = items.reduce((acc: Record<string, FabricItem[]>, item: FabricItem) => {
+    if (!acc[item.category]) {
+      acc[item.category] = [];
+    }
+    acc[item.category].push(item);
+    return acc;
+  }, {});
 
   return (
     <div style={{ padding: "20px", backgroundColor: "#FFF5EE" }}>
