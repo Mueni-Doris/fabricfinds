@@ -4,11 +4,12 @@ import { CartModule } from './cart/cart.module';
 import { PrismaModule } from './prisma/prisma.module'; // 👈 Add this line
 import { FabricsModule } from './fabrics/fabrics.module';
 import { ClothesModule } from './clothes/clothes.module';
-
+// import { OrdersModule } from './orders/orders.module';
+import {ReportsModule} from './reports/reports.module';
 
 
 @Module({
-  imports: [AuthModule,FabricsModule,ClothesModule, CartModule, PrismaModule], // 👈 Add this line
+  imports: [AuthModule,FabricsModule,ClothesModule, CartModule,ReportsModule, PrismaModule], // 👈 Add this line
 })
 export class AppModule {}
 

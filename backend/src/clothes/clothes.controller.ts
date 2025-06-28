@@ -18,9 +18,9 @@ export class ClothesController {
   @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({
-        destination: '../public/uploads',
+        destination: '../public/uploads', // Ensure this path is correct relative to your backend entry point
         filename: (req, file, cb) => {
-          const uniqueName = Date.now() + extname(file.originalname);
+          const uniqueName = `${Date.now()}${extname(file.originalname)}`;
           cb(null, uniqueName);
         },
       }),
@@ -30,20 +30,26 @@ export class ClothesController {
     @UploadedFile() image: Express.Multer.File,
     @Body()
     body: {
-      name: string;
       description: string;
       price: string;
-      stock: string;
+      quantity: string;
       category: string;
     },
   ) {
-    const { description, price,  category } = body;
+    const { description, price, quantity, category } = body;
 
-    return this.clothesService.createClothes({
+    if (!image) {
+      return { success: false, message: 'No image uploaded.' };
+    }
+
+    const clothe = await this.clothesService.createClothes({
       description,
       price: parseFloat(price),
-      image: `/uploads/${image.filename}`,
+      quantity: parseInt(quantity),
       category,
+      image: `/uploads/${image.filename}`,
     });
+
+    return { success: true, message: 'Item uploaded!', clothe };
   }
 }

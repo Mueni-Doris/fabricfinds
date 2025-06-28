@@ -27,6 +27,8 @@ model clothes {
   price       Decimal  @db.Decimal(10, 2)
   image       String   @db.Text
   created_at  DateTime @default(now())
+  quantity    Int      @default(1) 
+
 }
 
 model order_items {

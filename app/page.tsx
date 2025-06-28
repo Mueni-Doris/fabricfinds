@@ -20,9 +20,9 @@ export default function HomePage() {
         </h2>
 
         <div className="text-lg mt-4 backdrop-blur-sm px-4 py-2">
-          <p>♻️ Unique. Affordable. Sustainable.</p>
-          <p>🧥 Every piece is handpicked with love.</p> 
-          <p>🌱 Shopping here means saving the planet (and your wallet).</p>
+          <p> Unique. Affordable. Sustainable.</p>
+          <p> Every piece is handpicked with love.</p> 
+          <p> Shopping here means saving the planet (and your wallet).</p>
         </div>
 
         <Link

@@ -72,9 +72,9 @@ export default function RegisterPage() {
           required
         >
           <option value="">Select a category</option>
-          <option value="tops">Tops</option>
-          <option value="trousers">Trousers</option>
-          <option value="dress">Dress</option>
+          <option value="Tops">Tops</option>
+          <option value="Trousers">Trousers</option>
+          <option value="Dress">Dress</option>
         </select>
 
 
