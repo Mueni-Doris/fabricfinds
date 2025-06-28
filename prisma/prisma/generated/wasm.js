@@ -120,16 +120,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.CartScalarFieldEnum = {
-  id: 'id',
-  description: 'description',
-  price: 'price',
-  image: 'image',
-  quantity: 'quantity',
-  clothe_id: 'clothe_id',
-  email: 'email'
-};
-
 exports.Prisma.ClothesScalarFieldEnum = {
   id: 'id',
   description: 'description',
@@ -161,8 +151,18 @@ exports.Prisma.OrdersScalarFieldEnum = {
   created_at: 'created_at'
 };
 
-exports.Prisma.UserScalarFieldEnum = {
+exports.Prisma.CartScalarFieldEnum = {
   id: 'id',
+  description: 'description',
+  price: 'price',
+  image: 'image',
+  quantity: 'quantity',
+  clothe_id: 'clothe_id',
+  email: 'email'
+};
+
+exports.Prisma.UserScalarFieldEnum = {
+  user_id: 'user_id',
   full_name: 'full_name',
   phone_number: 'phone_number',
   username: 'username',
@@ -175,12 +175,6 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
-};
-
-exports.Prisma.CartOrderByRelevanceFieldEnum = {
-  description: 'description',
-  image: 'image',
-  email: 'email'
 };
 
 exports.Prisma.clothesOrderByRelevanceFieldEnum = {
@@ -208,10 +202,14 @@ exports.Prisma.ordersOrderByRelevanceFieldEnum = {
   phone: 'phone'
 };
 
-exports.Prisma.UserOrderByRelevanceFieldEnum = {
-  id: 'id',
+exports.Prisma.cartOrderByRelevanceFieldEnum = {
+  description: 'description',
+  image: 'image',
+  email: 'email'
+};
+
+exports.Prisma.userOrderByRelevanceFieldEnum = {
   full_name: 'full_name',
-  phone_number: 'phone_number',
   username: 'username',
   email: 'email',
   location: 'location',
@@ -220,11 +218,11 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
 
 
 exports.Prisma.ModelName = {
-  Cart: 'Cart',
   clothes: 'clothes',
   order_items: 'order_items',
   orders: 'orders',
-  User: 'User'
+  cart: 'cart',
+  user: 'user'
 };
 
 /**

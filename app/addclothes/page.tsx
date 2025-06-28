@@ -26,10 +26,11 @@ export default function RegisterPage() {
     formData.append('image', imageFile); // ✅ now using actual file
 
     try {
-      const response = await fetch('http://localhost/backend/addclothes.php', {
-        method: 'POST',
-        body: formData, // no need for headers
+      const response = await fetch('http://localhost:3001/clothes/upload', {
+        method: 'POST', // ✅ must be POST
+        body: formData,
       });
+      
 
       const data = await response.json();
 

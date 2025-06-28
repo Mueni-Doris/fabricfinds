@@ -3,30 +3,18 @@ generator client {
   output   = "./prisma/generated"
 }
 
-
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-model Cart {
-  id          Int     @id @default(autoincrement())
-  description String
-  price       Decimal
-  image       String
-  quantity    Int
-  clothe_id   Int
-  email       String
-}
-
 model clothes {
-  id          Int     @id
-  description String  @db.Text
-  category    String  @db.VarChar(50)
-  price       Decimal @db.Decimal(10, 2)
-  image       String  @db.Text
+  id          Int      @id @default(autoincrement())
+  description String   @db.Text
+  category    String   @db.VarChar(50)
+  price       Decimal  @db.Decimal(10, 2)
+  image       String   @db.Text
   created_at  DateTime @default(now())
-
 }
 
 model order_items {
@@ -54,14 +42,27 @@ model orders {
   created_at DateTime? @default(now()) @db.Timestamp(0)
 }
 
-model User {
-  id             String   @id @default(cuid())
-  full_name      String
-  phone_number   String
-  username       String   @unique
-  email          String   @unique
-  location       String
-  password       String
-  createdAt      DateTime @default(now())
+model cart {
+  id          Int     @id @default(autoincrement())
+  description String  @db.VarChar(100)
+  price       Decimal @db.Decimal(65, 0)
+  image       String  @db.VarChar(100)
+  quantity    Int
+  clothe_id   Int
+  email       String  @db.VarChar(255)
+  user        user    @relation(fields: [email], references: [email], onDelete: Cascade, onUpdate: NoAction, map: "fk_cart_user_email")
+
+  @@index([email], map: "fk_cart_user_email")
 }
 
+model user {
+  user_id      Int      @id @default(autoincrement())
+  full_name    String
+  phone_number Int
+  username     String
+  email        String   @unique(map: "unique_email") @db.VarChar(255)
+  location     String
+  password     String
+  createdAt    DateTime @default(now())
+  cart         cart[]
+}

@@ -33,7 +33,7 @@ export default function CartItemList({ groupedByCategory }: Props) {
         console.log("Session check:", data);
 
         if (!data.loggedIn) {
-          toast.error("Please login first 🙅‍♀️");
+          toast.error("Please login first ");
           router.push('/login');
         }
       } catch (error) {

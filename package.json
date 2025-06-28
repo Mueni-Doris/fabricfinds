@@ -7,13 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-"postinstall": "prisma generate --generator client"
-
+    "postinstall": "prisma generate --generator client"
   },
   "dependencies": {
+    "@nestjs/platform-express": "^11.1.3",
     "@prisma/client": "^6.8.2",
     "bcryptjs": "^3.0.2",
     "express": "^5.1.0",
+    "multer": "^2.0.1",
     "next": "15.3.2",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",
