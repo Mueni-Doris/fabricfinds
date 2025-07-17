@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Decimal } from '@prisma/client/runtime/library'; // ✅ This is fine!
+import { Decimal } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class CartService {
@@ -24,7 +24,7 @@ export class CartService {
 
     if (existing) {
       const updatedPrice = new Decimal(
-        existing.price.toNumber() + data.price * data.quantity
+        existing.price.toNumber() + data.price * data.quantity,
       );
 
       return this.prisma.cart.update({
@@ -39,15 +39,25 @@ export class CartService {
     return this.prisma.cart.create({
       data: {
         ...data,
-        price: new Decimal(data.price * data.quantity), // ✅ Multiply before storing
+        price: new Decimal(data.price * data.quantity),
       },
     });
   }
 
-  // ✅ Get cart items for a user (with Decimal cleanup handled in controller)
+  // ✅ Get cart items for a user (without clothes relationship)
   async getCart(email: string) {
     return this.prisma.cart.findMany({
       where: { email },
+    });
+  }
+
+  // ✅ Get cart items including clothe details (used in checkout)
+  async getCartItemsByEmail(email: string) {
+    return this.prisma.cart.findMany({
+      where: { email },
+      include: {
+        clothe: true, // Make sure your model uses "clothe", not "clothes"
+      },
     });
   }
 

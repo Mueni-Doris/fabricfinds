@@ -39,6 +39,7 @@ export class CartController {
   async addItem(@Req() req: Request, @Body() body: any) {
     const email = req.session.user?.email;
     if (!email) return { success: false, message: 'Not logged in' };
+    
 
     const item = await this.cartService.addItem({
       description: body.description,

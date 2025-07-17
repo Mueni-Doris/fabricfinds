@@ -15,16 +15,19 @@ export class AuthService {
     phone_number: number;
     username: string;
     location: string;
+    role: string; 
+
   }) {
     try {
       const existingUser = await this.prisma.user.findUnique({
         where: { email: userData.email.trim() },
       });
 
-      if (existingUser) {
-        return { success: false, message: 'Email already taken 😬' };
-      }
+      if (existingUser) 
+        return { success: false, 
+          message: 'Registration failed,Email already taken 😬' };
 
+        
       const hashedPassword = await bcrypt.hash(userData.password.trim(), 10);
       console.log('🔐 Hashed password:', hashedPassword);
 
@@ -36,6 +39,8 @@ export class AuthService {
           phone_number: userData.phone_number,
           username: userData.username.trim(),
           location: userData.location.trim(),
+          role: userData.role.trim(),
+          
         },
       });
 
@@ -80,6 +85,10 @@ export class AuthService {
           email: user.email,
           username: user.username,
           full_name: user.full_name,
+          role: user.role,
+          location: user.location,
+          phone_number: user.phone_number,
+
         },
       };
     } catch (error: unknown) {
@@ -87,7 +96,7 @@ export class AuthService {
         error instanceof Error ? error.message : String(error);
       return {
         success: false,
-        message: `🔥 Internal Server Error: ${errorMessage}`,
+        message: ` Internal Server Error: ${errorMessage}`,
       };
     }
   }

@@ -1,4 +1,3 @@
-// src/main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as session from 'express-session';
@@ -14,11 +13,11 @@ async function bootstrap() {
       cookie: {
         maxAge: 1000 * 60 * 60 * 24, // 1 day
         httpOnly: true,
+        sameSite: 'lax', // 🔥 this makes cookie survive between ports
       },
     }),
   );
 
-  // ✅ Enable CORS *after* sessions, just to be safe
   app.enableCors({
     origin: 'http://localhost:3000',
     credentials: true,
