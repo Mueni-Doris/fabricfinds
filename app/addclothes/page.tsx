@@ -7,7 +7,8 @@ export default function RegisterPage() {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
-  const [imageFile, setImageFile] = useState<File | null>(null); // actual file, not base64
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [quantity, setQuantity] = useState('');
 
   const router = useRouter();
 
@@ -24,6 +25,7 @@ export default function RegisterPage() {
     formData.append('category', category);
     formData.append('price', price);
     formData.append('image', imageFile); // ✅ now using actual file
+    formData.append('quantity', quantity);
 
     try {
       const response = await fetch('http://localhost:3001/clothes/upload', {
@@ -40,7 +42,7 @@ export default function RegisterPage() {
       }
 
       alert("Success! 🎉 " + data.message);
-      router.push('/login');
+      router.push('/reports');
 
     } catch (err: any) {
       console.error("Fetch error:", err);
@@ -97,6 +99,15 @@ export default function RegisterPage() {
           }}
           required
         />
+
+        <input type ="number"
+        placeholder="Quantity"
+        className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-400"
+        value={quantity}
+        onChange={(e) =>
+          setQuantity(e.target.value)}
+          required
+          />
 
         <button
           type="submit"

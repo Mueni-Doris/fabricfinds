@@ -38,7 +38,7 @@ export default function CartPage() {
   }, {});
 
   return (
-    <div style={{ padding: "20px", backgroundColor: "#FFF5EE" }}>
+    <div style={{  }}>
       <CartItemList groupedByCategory={groupedByCategory} />
     </div>
   );

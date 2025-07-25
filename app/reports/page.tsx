@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import AdNavbar from "@/components/adnavbar";
 import { toast } from 'react-hot-toast';
 
 interface ReportItem {
@@ -40,7 +41,7 @@ export default function ReportsPage() {
     const verifySessionAndFetch = async () => {
       try {
         // ✅ Replace with Nest.js session checker
-        const res = await fetch("http://localhost/backend/check_session.php", {
+        const res = await fetch("http://localhost:3001/auth/check-session", {
           credentials: 'include',
         });
         const data = await res.json();
@@ -103,11 +104,15 @@ export default function ReportsPage() {
 
   if (loading) {
     return (
-      <div className="p-6 text-2xl text-center text-yellow-500">
+      <div className="bg-yellow-50 min-h-screen">
+        <AdNavbar /> {/* ✅ Admin Navbar appears */}
+        <div className="p-6 text-2xl text-center text-yellow-500">
         Hang tight 💛 Fetching your reports...
-        <div className="mt-4 h-10 w-10 border-4 border-yellow-300 border-t-transparent rounded-full animate-spin mx-auto" />
-      </div>
+        </div>
+
+        </div>
     );
+    
   }
 
   return (

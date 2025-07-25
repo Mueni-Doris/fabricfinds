@@ -8,22 +8,26 @@ export default function LogoutButton() {
 
   const handleLogout = async () => {
     try {
-      const res = await fetch('http://localhost/backend/logout.php', {
+      const res = await fetch('http://localhost:3001/auth/logout', {
         method: 'POST',
-        credentials: 'include', // sends session cookie
+        credentials: 'include',
       });
 
       const data = await res.json();
 
       if (data.success) {
-        toast.success('Bye, please come back');
-        router.push('/login');
+        toast.success('Bye, please come back 👋🏽');
+
+        // ⏳ Add 2-second delay before redirecting
+        setTimeout(() => {
+          router.push('/clothes');
+        }, 2000); // 2000ms = 2 seconds
       } else {
-        toast.error('Logout failed ');
+        toast.error('Logout failed 😵');
       }
     } catch (err) {
       console.error("Logout error:", err);
-      toast.error('Something went wrong ');
+      toast.error('Something went wrong 💥');
     }
   };
 

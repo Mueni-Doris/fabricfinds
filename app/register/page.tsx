@@ -47,8 +47,10 @@ export default function RegisterPage() {
         throw new Error(data.message || "Something went wrong");
       }
 
-      alert("Success! 🎉 " + data.message);
-      router.push('/login');
+
+      alert( data.message);
+      if (data.success){
+      router.push('/login');}
     } catch (err: any) {
       console.error("Registration failed:", err);
       alert("Registration failed: " + err.message);

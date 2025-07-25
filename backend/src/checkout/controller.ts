@@ -31,8 +31,17 @@ export class CheckoutController {
         });
       }
 
-      const { email, phone, address } = req.session.user;
+      const { email, phone_number, address } = user;
+
+      if (!email) {
+        return res.status(400).json({
+          success: false,
+          message: 'Email not found in session.',
+        });
+      }
+      
       const items = await this.cartService.getCartItemsByEmail(email);
+      
 
       const updatedItems = items.map((item) => {
         const price = typeof item.clothe.price === 'object' && 'toNumber' in item.clothe.price

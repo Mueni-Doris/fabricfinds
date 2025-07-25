@@ -43,7 +43,7 @@ export class AuthController {
 
       req.session.user = {
         email,
-        phone_number,
+        phone_number:String(phone_number),
         location,
       };
 

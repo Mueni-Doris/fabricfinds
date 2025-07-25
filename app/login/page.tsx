@@ -11,25 +11,25 @@ export default function LoginPage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     if (!email.trim() || !password.trim()) {
       toast.error('Both fields are required');
       return;
     }
-  
+
     try {
       const res = await fetch('http://localhost:3001/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include',
+        credentials: 'include', // ✅ VERY IMPORTANT!
         body: JSON.stringify({ email, password }),
       });
-  
+
       const text = await res.text();
       console.log("Raw response:", text);
-  
+
       let data;
       try {
         data = JSON.parse(text);
@@ -37,21 +37,41 @@ export default function LoginPage() {
         toast.error("Weird server response");
         return;
       }
-  
+
       if (data.success) {
-        toast.success('Login successful ');
-        setTimeout(() => {
-          router.push('/cart');
-        }, 500);
+        toast.success("Login successful ✨");
+
+        // ✅ DOUBLE-CHECK SESSION IS STORED!
+        const sessionRes = await fetch('http://localhost:3001/auth/check-session', {
+          credentials: 'include',
+        });
+
+        const sessionData = await sessionRes.json();
+        console.log("Session check after login:", sessionData);
+
+        if (sessionData.loggedIn) {
+          const role = data.user?.role;
+          setTimeout(() => {
+            if (role === "admin") {
+              router.push("/reports");
+            } else {
+              router.push("/cart");
+            }
+          }, 500);
+        } else {
+          toast.error("Session failed to persist 💥");
+        }
+
       } else {
         toast.error(data.message || 'Invalid login 😶');
       }
+
     } catch (err) {
       console.error("Login error:", err);
       toast.error('Server error. Please try again.');
     }
   };
-  
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-yellow-50 px-4">
       <form

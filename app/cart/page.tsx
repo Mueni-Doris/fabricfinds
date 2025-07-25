@@ -31,7 +31,7 @@ export default function CartPage() {
   useEffect(() => {
     const checkSessionAndFetch = async () => {
       try {
-        const res = await fetch("http://localhost/backend/check_session.php", {
+        const res = await fetch("http://localhost:3001/auth/check-session", {
           credentials: "include",
         });
         const data = await res.json();
