@@ -76,7 +76,7 @@ export default function CheckoutPage() {
         </h1>
 
         <form
-          action="http://localhost/backend/process_payment.php"
+          action="http://localhost:3000/thankyou"
           method="POST"
           className="bg-white shadow-2xl p-8 rounded-2xl space-y-6 border border-yellow-200"
         >
@@ -90,7 +90,7 @@ export default function CheckoutPage() {
                 type="text"
                 name="full_name"
                 value={user.full_name}
-                readOnly
+                // readOnly
                 className="mt-1 w-full border rounded-xl p-3 bg-gray-100 text-gray-700"
               />
             </div>
@@ -119,7 +119,7 @@ export default function CheckoutPage() {
                 type="text"
                 name="address"
                 value={user.address}
-                readOnly
+                // readOnly
                 className="mt-1 w-full border rounded-xl p-3"
               />
             </div>
@@ -130,13 +130,13 @@ export default function CheckoutPage() {
               </label>
               <input
 
-type="tel"
-name="phone"
-value={phone || user.phonenumber}
-onChange={(e) => setPhone(e.target.value)}
-required
-placeholder="0700000000"
-className="mt-1 w-full border rounded-xl p-3"
+                type="tel"
+                name="phone"
+                value={phone || user.phonenumber}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+                placeholder="0700000000"
+                className="mt-1 w-full border rounded-xl p-3"
 
 
               />
