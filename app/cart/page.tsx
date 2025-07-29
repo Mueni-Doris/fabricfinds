@@ -3,9 +3,20 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import { Spiral } from 'ldrs/react'
+import 'ldrs/react/Spiral.css'
+
+interface CartItem {
+  id: number;
+  description: string;
+  image: string;
+  price: number;
+  quantity: number;
+}
+
 
 export default function CartPage() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<CartItem[]>([]);
   const [editingItemId, setEditingItemId] = useState<number | null>(null);
   const [editedQuantity, setEditedQuantity] = useState<number>(1);
   const [loading, setLoading] = useState(true);
@@ -103,10 +114,11 @@ export default function CartPage() {
 
   if (loading) {
     return (
-      <div className="p-6 text-4xl text-yellow-300">
-        Bear with me love 😅...
-        <div className="mt-4 h-10 w-10 border-4 border-yellow-300 border-t-transparent rounded-full animate-spin" />
-      </div>
+<div className="flex items-center gap-4">
+  <Spiral size="40" speed="0.9" color="brown" />
+  <span color="brown">Bear with me love 😅...</span>
+</div>
+
     );
   }
 

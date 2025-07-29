@@ -1,9 +1,10 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AdNavbar from "@/components/adnavbar";
 import { toast } from 'react-hot-toast';
+import { Spiral } from 'ldrs/react'
+import 'ldrs/react/Spiral.css'
 
 interface ReportItem {
   id: number;
@@ -107,6 +108,7 @@ export default function ReportsPage() {
       <div className="bg-yellow-50 min-h-screen">
         <AdNavbar /> {/* ✅ Admin Navbar appears */}
         <div className="p-6 text-2xl text-center text-yellow-500">
+        <Spiral size="40" speed="0.9" color="brown" />
         Hang tight 💛 Fetching your reports...
         </div>
 

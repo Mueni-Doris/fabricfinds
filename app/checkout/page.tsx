@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import { Spiral } from 'ldrs/react'
+import 'ldrs/react/Spiral.css'
 
 interface CartItem {
   id: number;
@@ -64,6 +66,7 @@ export default function CheckoutPage() {
   if (loading)
     return (
       <p className="p-10 text-3xl font-semibold text-yellow-600 text-center">
+          <Spiral size="40" speed="0.9" color="brown" />
         Just a sec, .. 👑
       </p>
     );
