@@ -126,7 +126,8 @@ exports.Prisma.ClothesScalarFieldEnum = {
   category: 'category',
   price: 'price',
   image: 'image',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  quantity: 'quantity'
 };
 
 exports.Prisma.Order_itemsScalarFieldEnum = {
