@@ -15,6 +15,7 @@ model clothes {
   price       Decimal  @db.Decimal(10, 2)
   image       String   @db.Text
   created_at  DateTime @default(now())
+  quantity    Int      @default(1)
 }
 
 model order_items {
@@ -63,7 +64,7 @@ model user {
   email        String   @unique(map: "unique_email") @db.VarChar(255)
   location     String
   password     String
-  role String @default("user")
+  role         String?  @default("user") @db.VarChar(50)
   createdAt    DateTime @default(now())
   cart         cart[]
 }

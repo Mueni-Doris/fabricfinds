@@ -169,6 +169,7 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   location: 'location',
   password: 'password',
+  role: 'role',
   createdAt: 'createdAt'
 };
 
@@ -213,7 +214,8 @@ exports.Prisma.userOrderByRelevanceFieldEnum = {
   username: 'username',
   email: 'email',
   location: 'location',
-  password: 'password'
+  password: 'password',
+  role: 'role'
 };
 
 

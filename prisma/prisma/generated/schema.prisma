@@ -63,6 +63,7 @@ model user {
   email        String   @unique(map: "unique_email") @db.VarChar(255)
   location     String
   password     String
+  role         String   @default("user")
   createdAt    DateTime @default(now())
   cart         cart[]
 }
