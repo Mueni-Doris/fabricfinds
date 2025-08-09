@@ -34,7 +34,7 @@ export default function CheckoutPage() {
   useEffect(() => {
     const fetchCheckout = async () => {
       try {
-        const res = await fetch("http://localhost:3001/checkout", {
+        const res = await fetch("http://${process.env.NEXT_PUBLIC_API_URL}/checkout", {
           method: "GET",
           credentials: "include",
         });

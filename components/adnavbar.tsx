@@ -9,7 +9,7 @@ export default function Navbar() {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const res = await fetch('http://localhost:3001/auth/check-session', {
+        const res = await fetch('http://${process.env.NEXT_PUBLIC_API_URL}/auth/check-session', {
           credentials: 'include',
         });
         const data = await res.json();

@@ -17,7 +17,7 @@ export default function CartPage() {
   useEffect(() => {
     async function fetchFabrics() {
       try {
-        const res = await fetch("http://localhost:3001/fabrics");
+        const res = await fetch("http://${process.env.NEXT_PUBLIC_API_URL}/fabrics");
         const data = await res.json();
         setItems(data);
       } catch (err) {

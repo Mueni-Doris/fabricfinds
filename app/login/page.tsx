@@ -18,7 +18,7 @@ export default function LoginPage() {
     }
 
     try {
-      const res = await fetch('http://localhost:3001/auth/login', {
+      const res = await fetch('http://${process.env.NEXT_PUBLIC_API_URL}/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export default function LoginPage() {
         toast.success("Login successful ✨");
 
         // ✅ DOUBLE-CHECK SESSION IS STORED!
-        const sessionRes = await fetch('http://localhost:3001/auth/check-session', {
+        const sessionRes = await fetch('http://${process.env.NEXT_PUBLIC_API_URL}/auth/check-session', {
           credentials: 'include',
         });
 
