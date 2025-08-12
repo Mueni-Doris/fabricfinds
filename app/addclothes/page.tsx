@@ -28,7 +28,7 @@ export default function RegisterPage() {
     formData.append('quantity', quantity);
 
     try {
-      const response = await fetch('http://${process.env.NEXT_PUBLIC_API_URL}/clothes/upload', {
+      const response = await fetch(`http://${process.env.NEXT_PUBLIC_API_URL}/clothes/upload`, {
         method: 'POST', // ✅ must be POST
         body: formData,
       });

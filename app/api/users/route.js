@@ -8,7 +8,7 @@ async function getUsers() {
   try {
     // Fetch all users from the 'users' table
     const users = await prisma.users.findMany();
-    console.log('All users:', users);
+    console.log(`All users:`, users);
   } catch (error) {
     console.error('Error fetching users:', error);
   } finally {

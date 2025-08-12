@@ -24,7 +24,7 @@ export default function CartPage() {
 
   const fetchCart = async () => {
     try {
-      const res = await fetch("http://${process.env.NEXT_PUBLIC_API_URL}/cart", {
+      const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_URL}/cart`, {
         method: "GET",
         credentials: "include",
       });
@@ -42,7 +42,7 @@ export default function CartPage() {
   useEffect(() => {
     const checkSessionAndFetch = async () => {
       try {
-        const res = await fetch("http://${process.env.NEXT_PUBLIC_API_URL}/auth/check-session", {
+        const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_URL}/auth/check-session`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -65,7 +65,7 @@ export default function CartPage() {
 
   const handleSaveEdit = async (item: any) => {
     try {
-      const res = await fetch("http://${process.env.NEXT_PUBLIC_API_URL}/cart/update/" + item.id, {
+      const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_URL}/cart/update/` + item.id, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -91,7 +91,7 @@ export default function CartPage() {
     if (!confirm(`Remove ${item.description}?`)) return;
 
     try {
-      const res = await fetch("http://${process.env.NEXT_PUBLIC_API_URL}/cart/remove/" + item.id, {
+      const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_URL}/cart/remove/` + item.id, {
         method: "DELETE",
         credentials: "include",
       });

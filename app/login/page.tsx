@@ -17,15 +17,15 @@ export default function LoginPage() {
       return;
     }
 
-    try {
-      const res = await fetch('${process.env.NEXT_PUBLIC_API_URL}/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include', // ✅ VERY IMPORTANT!
-        body: JSON.stringify({ email, password }),
-      });
+try {               
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include', // ✅ VERY IMPORTANT!
+    body: JSON.stringify({ email, password }),
+  });
 
       const text = await res.text();
       console.log("Raw response:", text);
@@ -42,7 +42,7 @@ export default function LoginPage() {
         toast.success("Login successful ✨");
 
         // ✅ DOUBLE-CHECK SESSION IS STORED!
-        const sessionRes = await fetch('${process.env.NEXT_PUBLIC_API_URL}/auth/check-session', {
+        const sessionRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/check-session`, {
           credentials: 'include',
         });
 
