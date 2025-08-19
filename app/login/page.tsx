@@ -43,6 +43,7 @@ try {
 
         // ✅ DOUBLE-CHECK SESSION IS STORED!
         const sessionRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/check-session`, {
+          method : "GET",
           credentials: 'include',
         });
 
