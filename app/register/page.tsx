@@ -37,7 +37,8 @@ export default function RegisterPage() {
           username,
           location,
           password,
-        }),
+          role: "user",        
+         }),
       });
 
       const data = await response.json();
