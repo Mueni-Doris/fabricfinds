@@ -23,7 +23,7 @@ export default function ReportsPage() {
 
   const fetchReports = async () => {
     try {
-      const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_URL}/reports`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/reports`, {
         method: 'GET',
         credentials: 'include',
       });
@@ -42,7 +42,7 @@ export default function ReportsPage() {
     const verifySessionAndFetch = async () => {
       try {
         // ✅ Replace with Nest.js session checker
-        const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_URL}/auth/check-session`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/check-session`, {
           credentials: 'include',
         });
         const data = await res.json();
@@ -65,7 +65,7 @@ export default function ReportsPage() {
 
   const handleSaveEdit = async (item: ReportItem) => {
     try {
-      const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_URL}/reports/update/${item.id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/reports/update/${item.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -87,7 +87,7 @@ export default function ReportsPage() {
   const handleDelete = async (item: ReportItem) => {
     if (!confirm(`Remove "${item.description}" from reports?`)) return;
     try {
-      const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_URL}/reports/remove/${item.id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/reports/remove/${item.id}`, {
         method: 'DELETE',
         credentials: 'include',
       });

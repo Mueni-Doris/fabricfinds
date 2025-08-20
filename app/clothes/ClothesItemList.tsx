@@ -21,7 +21,7 @@ export default function CartItemList({ groupedByCategory }: Props) {
 
   const handleAddToCart = async (item: FabricItem) => {
     try {
-      const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_URL}/cart/add`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/add`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
