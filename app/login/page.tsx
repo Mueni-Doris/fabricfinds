@@ -39,7 +39,7 @@ export default function LoginPage() {
       }
 
       if (data.success) {
-        toast.success("Login successful ✨");
+        toast.success("Login successful ");
 
         // ✅✅✅ CRITICAL FIX: REMOVED THE IMMEDIATE check-session REQUEST ✅✅✅
         // The session cookie is set by the login response. We trust it and redirect.
