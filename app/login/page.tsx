@@ -9,7 +9,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email.trim() || !password.trim()) {
@@ -17,15 +17,15 @@ export default function LoginPage() {
       return;
     }
 
-try {               
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include', // ✅ VERY IMPORTANT!
-    body: JSON.stringify({ email, password }),
-  });
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // ✅ VERY IMPORTANT!
+        body: JSON.stringify({ email, password }),
+      });
 
       const text = await res.text();
       console.log("Raw response:", text);
@@ -41,27 +41,19 @@ try {
       if (data.success) {
         toast.success("Login successful ✨");
 
-        // ✅ DOUBLE-CHECK SESSION IS STORED!
-        const sessionRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/check-session`, {
-          method : "GET",
-          credentials: 'include',
-        });
+        // ✅✅✅ CRITICAL FIX: REMOVED THE IMMEDIATE check-session REQUEST ✅✅✅
+        // The session cookie is set by the login response. We trust it and redirect.
+        // The browser needs a moment to process the cookie, so we just redirect after a short delay.
+        console.log("Login successful, user role:", data.user?.role);
 
-        const sessionData = await sessionRes.json();
-        console.log("Session check after login:", sessionData);
-
-        if (sessionData.loggedIn) {
-          const role = data.user?.role;
-          setTimeout(() => {
-            if (role === "admin") {
-              router.push("/reports");
-            } else {
-              router.push("/cart");
-            }
-          }, 500);
-        } else {
-          toast.error("Session failed to persist 💥");
-        }
+        const role = data.user?.role;
+        setTimeout(() => {
+          if (role === "admin") {
+            router.push("/reports");
+          } else {
+            router.push("/cart");
+          }
+        }, 500); // This delay is now just for a smooth UX, not for waiting for a cookie.
 
       } else {
         toast.error(data.message || 'Invalid login 😶');
@@ -72,7 +64,6 @@ try {
       toast.error('Server error. Please try again.');
     }
   };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-yellow-50 px-4">
       <form
