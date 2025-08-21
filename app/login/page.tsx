@@ -9,61 +9,59 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-    const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    if (!email.trim() || !password.trim()) {
-      toast.error('Both fields are required');
-      return;
+  if (!email.trim() || !password.trim()) {
+    toast.error('Both fields are required');
+    return;
+  }
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ email, password }),
+    });
+
+    // 🚀 FIX: First get the response text for debugging
+    const text = await res.text();
+    console.log("Raw response text:", text); // 👈 Add this for debugging
+
+    // 🚀 FIX: Check if response is OK first
+    if (!res.ok) {
+      throw new Error(`Server error: ${res.status} - ${text}`);
     }
 
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include', // ✅ VERY IMPORTANT!
-        body: JSON.stringify({ email, password }),
-      });
+    // 🚀 FIX: Now parse the JSON
+    const data = JSON.parse(text);
+    console.log("Parsed response:", data);
 
-      const text = await res.text();
-      console.log("Raw response:", text);
+    if (data.success) {
+      toast.success("Login successful ✨");
+      console.log("Login successful, user role:", data.user?.role);
 
-      let data;
-      try {
-        data = JSON.parse(text);
-      } catch (err) {
-        toast.error("Weird server response");
-        return;
-      }
+      const role = data.user?.role;
+      setTimeout(() => {
+        if (role === "admin") {
+          router.push("/reports");
+        } else {
+          router.push("/cart");
+        }
+      }, 500);
 
-      if (data.success) {
-        toast.success("Login successful ");
-
-        // ✅✅✅ CRITICAL FIX: REMOVED THE IMMEDIATE check-session REQUEST ✅✅✅
-        // The session cookie is set by the login response. We trust it and redirect.
-        // The browser needs a moment to process the cookie, so we just redirect after a short delay.
-        console.log("Login successful, user role:", data.user?.role);
-
-        const role = data.user?.role;
-        setTimeout(() => {
-          if (role === "admin") {
-            router.push("/reports");
-          } else {
-            router.push("/cart");
-          }
-        }, 500); // This delay is now just for a smooth UX, not for waiting for a cookie.
-
-      } else {
-        toast.error(data.message || 'Invalid login 😶');
-      }
-
-    } catch (err) {
-      console.error("Login error:", err);
-      toast.error('Server error. Please try again.');
+    } else {
+      toast.error(data.message || 'Invalid login 😶');
     }
-  };
+
+  } catch (err) {
+    console.error("Login error:", err);
+    toast.error('Server error. Please try again.');
+  }
+};
   return (
     <div className="min-h-screen flex items-center justify-center bg-yellow-50 px-4">
       <form
