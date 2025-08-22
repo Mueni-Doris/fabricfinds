@@ -18,50 +18,49 @@ const handleLogin = async (e: React.FormEvent) => {
   }
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify({ email, password }),
-    });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({ email, password }),
+  });
 
-    // 🚀 FIX: First get the response text for debugging
-    const text = await res.text();
-    console.log("Raw response text:", text); // 👈 Add this for debugging
+  // 🚀 FIX: First get the response text for debugging
+  const text = await res.text();
+  console.log("Raw response text:", text);
 
-    // 🚀 FIX: Check if response is OK first
-    if (!res.ok) {
-      throw new Error(`Server error: ${res.status} - ${text}`);
-    }
-
-    // 🚀 FIX: Now parse the JSON
-    const data = JSON.parse(text);
-    console.log("Parsed response:", data);
-
-    if (data.success) {
-      toast.success("Login successful ✨");
-      console.log("Login successful, user role:", data.user?.role);
-
-      const role = data.user?.role;
-      setTimeout(() => {
-        if (role === "admin") {
-          router.push("/reports");
-        } else {
-          router.push("/cart");
-        }
-      }, 500);
-
-    } else {
-      toast.error(data.message || 'Invalid login 😶');
-    }
-
-  } catch (err) {
-    console.error("Login error:", err);
-    toast.error('Server error. Please try again.');
+  // 🚀 FIX: Check if response is OK first
+  if (!res.ok) {
+    throw new Error(`Server error: ${res.status} - ${text}`);
   }
-};
+
+  // 🚀 FIX: Use res.json() directly instead of manual parsing
+  const data = await res.json();
+  console.log("Parsed response:", data);
+
+  if (data.success) {
+    toast.success("Login successful ✨");
+    console.log("Login successful, user role:", data.user?.role);
+
+    const role = data.user?.role;
+    setTimeout(() => {
+      if (role === "admin") {
+        router.push("/reports");
+      } else {
+        router.push("/cart");
+      }
+    }, 500);
+
+  } else {
+    toast.error(data.message || 'Invalid login 😶');
+  }
+
+} catch (err) {
+  console.error("Login error:", err);
+  toast.error('Server error. Please try again.');
+}}
   return (
     <div className="min-h-screen flex items-center justify-center bg-yellow-50 px-4">
       <form
